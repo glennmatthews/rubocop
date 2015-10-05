@@ -10,13 +10,13 @@ module RuboCop
       class ParameterLists < Cop
         include ConfigurableMax
 
-        MSG = 'Avoid parameter lists longer than %d parameters.'
+        MSG = 'Parameter list is too long. [%d/%d]'
 
         def on_args(node)
           count = args_count(node)
           return unless count > max_params
 
-          add_offense(node, :expression, format(MSG, max_params)) do
+          add_offense(node, :expression, format(MSG, count, max_params)) do
             self.max = count
           end
         end

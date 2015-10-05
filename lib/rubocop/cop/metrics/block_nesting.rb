@@ -31,7 +31,7 @@ module RuboCop
             if current_level > max
               self.max = current_level
               unless part_of_ignored_node?(node)
-                add_offense(node, :expression, message(max)) do
+                add_offense(node, :expression, message(current_level, max)) do
                   ignore_node(node)
                 end
               end
@@ -43,8 +43,8 @@ module RuboCop
           end
         end
 
-        def message(max)
-          "Avoid more than #{max} levels of block nesting."
+        def message(cur, max)
+          "Block is too deeply nested. [#{cur}/#{max}]"
         end
       end
     end
